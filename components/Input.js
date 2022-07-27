@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderBottomWidth: 0.5,
     borderBottomColor: "#8393a1",
-    marginBottom: 70,
+    marginBottom: 20,
   },
 });
 

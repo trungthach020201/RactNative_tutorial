@@ -6,30 +6,32 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import UserInput from "../components/Input";
-
-const LogIn = ({ navigation }) => {
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+const Register = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />
-      <Text style={styles.title}>Log In</Text>
+      <Text style={styles.title}>Register</Text>
+      <UserInput name="FullName" />
       <UserInput name="Email" />
       <UserInput name="Password" />
+      <UserInput name="Confirm Password" />
       <TouchableOpacity style={styles.submit}>
-        <Text>Submit</Text>
+        <Text>Register</Text>
       </TouchableOpacity>
       <Text style={{ marginTop: 50 }}>
-        Do not have account?{" "}
+        Have account?{" "}
         <Text
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate("LogIn")}
           style={{ color: "blue" }}
         >
-          Sign Up
+          Login
         </Text>
       </Text>
-      <Text style={{ marginTop: 10, color: "red" }}>Forget Password</Text>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -61,4 +63,4 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
-export default LogIn;
+export default Register;
