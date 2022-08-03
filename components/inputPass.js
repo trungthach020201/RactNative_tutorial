@@ -1,13 +1,15 @@
-import react from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { TextInput } from "react-native-paper";
-const UserInput = ({
+
+const PassInput = ({
   name,
   value,
   setValue,
   autoCapitalize = "none",
-  secureTextEntry = "false",
   keyboardType = "default",
+  secureTextEntry,
+  setPasswordVisible,
 }) => {
   return (
     <View>
@@ -19,6 +21,12 @@ const UserInput = ({
         keyboardType={keyboardType}
         value={value}
         onChangeText={(text) => setValue(text)}
+        right={
+          <TextInput.Icon
+            name={secureTextEntry ? "eye" : "eye-off"}
+            onPress={() => setPasswordVisible(!secureTextEntry)}
+          />
+        }
       />
     </View>
   );
@@ -35,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserInput;
+export default PassInput;

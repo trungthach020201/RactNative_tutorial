@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import UserInput from "../components/Input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import PassInput from "../components/inputPass";
 
 const Register = ({ navigation }) => {
   const [fullName, setFullName] = useState("");
@@ -10,6 +11,8 @@ const Register = ({ navigation }) => {
   const [confirmPass, setConfirmPass] = useState("");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [passwordVisibleCp, setPasswordVisibleCp] = useState(true);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -64,19 +67,21 @@ const Register = ({ navigation }) => {
         setValue={setPhone}
         keyboardType="numeric"
       />
-      <UserInput
+      <PassInput
         name="Password"
         value={password}
         setValue={setPassword}
-        secureTextEntry={true}
+        secureTextEntry={passwordVisible}
         autoCompleteType="password"
+        setPasswordVisible={setPasswordVisible}
       />
-      <UserInput
+      <PassInput
         name="Confirm Password"
         value={confirmPass}
         setValue={setConfirmPass}
-        secureTextEntry={true}
         autoCompleteType="password"
+        secureTextEntry={passwordVisibleCp}
+        setPasswordVisible={setPasswordVisibleCp}
       />
       <TouchableOpacity style={styles.submit} onPress={() => handleSubmit()}>
         <Text>{loading ? "Waiting..." : "Register"}</Text>

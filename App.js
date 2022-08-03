@@ -1,14 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import react from "react";
+import React from "react";
 import LogIn from "./screen/LogIn";
 import Register from "./screen/Register";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
+
+const MyTheme = {
+  dark: false,
+  colors: {
+    background: "rgb(255, 255, 255)",
+  },
+};
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         initialRouteName="LogIn"
         screenOptions={{ headerShown: false }}

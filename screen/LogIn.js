@@ -1,4 +1,4 @@
-import react from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -8,16 +8,47 @@ import {
   TouchableOpacity,
 } from "react-native";
 import UserInput from "../components/Input";
+import PassInput from "../components/inputPass";
 
 const LogIn = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(true);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    if (!email || !password) {
+      alert("All field must be filled");
+      setLoading(false);
+      return;
+    }
+    try {
+      alert("LogIn Success");
+    } catch (error) {
+      alert("LogIn fail");
+    }
+  };
   return (
     <View style={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />
       <Text style={styles.title}>Log In</Text>
-      <UserInput name="Email" />
-      <UserInput name="Password" />
-      <TouchableOpacity style={styles.submit}>
-        <Text>Submit</Text>
+      <UserInput
+        name="Email"
+        value={email}
+        setValue={setEmail}
+        autoCompleteType="email"
+      />
+      <PassInput
+        name="Password"
+        value={password}
+        setValue={setPassword}
+        secureTextEntry={passwordVisible}
+        autoCompleteType="password"
+        setPasswordVisible={setPasswordVisible}
+      />
+      <TouchableOpacity style={styles.submit} onPress={() => handleSubmit()}>
+        <Text>{loading ? "Waiting..." : "LogIn"}</Text>
       </TouchableOpacity>
       <Text style={{ marginTop: 50 }}>
         Do not have account?{" "}
@@ -38,6 +69,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 30,
+    backgroundColor: "white",
   },
   logo: {
     width: 270,
