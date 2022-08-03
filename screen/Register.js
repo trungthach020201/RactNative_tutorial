@@ -8,17 +8,23 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState("");
 
   const handleSubmit = async () => {
     setLoading(true);
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (!fullName || !email || !password || !confirmPass) {
+    const regPhone = /^[0-9\b]+$/;
+    if (!fullName || !phone || !email || !password || !confirmPass) {
       alert("All field should not be empty");
       setLoading(false);
       return;
     } else if (reg.test(email) === false) {
       alert("email InValid");
+      setLoading(false);
+      return;
+    } else if (regPhone.test(phone) === false) {
+      alert("Invalid Phone Number");
       setLoading(false);
       return;
     } else if (password != confirmPass) {
@@ -34,7 +40,6 @@ const Register = ({ navigation }) => {
       alert("SignUp successfull");
     } catch (err) {
       alert("Sign Up fail");
-      console.log(err);
     }
   };
   return (
@@ -52,6 +57,12 @@ const Register = ({ navigation }) => {
         value={email}
         setValue={setEmail}
         autoCompleteType="email"
+      />
+      <UserInput
+        name="Phone"
+        value={phone}
+        setValue={setPhone}
+        keyboardType="numeric"
       />
       <UserInput
         name="Password"

@@ -13,6 +13,7 @@ const UserInput = ({
   setValue,
   autoCapitalize = "none",
   secureTextEntry = "false",
+  keyboardType = "default",
 }) => {
   return (
     <View>
@@ -21,6 +22,7 @@ const UserInput = ({
         style={styles.input}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
         value={value}
         onChangeText={(text) => setValue(text)}
       />
