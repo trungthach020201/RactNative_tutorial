@@ -1,26 +1,74 @@
-import react from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import UserInput from "../components/Input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 const Register = ({ navigation }) => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [loading, setLoading] = useState("");
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (!fullName || !email || !password || !confirmPass) {
+      alert("All field should not be empty");
+      setLoading(false);
+      return;
+    } else if (reg.test(email) === false) {
+      alert("email InValid");
+      setLoading(false);
+      return;
+    } else if (password != confirmPass) {
+      alert("Password and Confirm password do not match");
+      setLoading(false);
+      return;
+    } else if (password.length < 6) {
+      alert("Password must be more than 6 characteristics");
+      setLoading(false);
+      return;
+    }
+    try {
+      alert("SignUp successfull");
+    } catch (err) {
+      alert("Sign Up fail");
+      console.log(err);
+    }
+  };
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />
       <Text style={styles.title}>Register</Text>
-      <UserInput name="FullName" />
-      <UserInput name="Email" />
-      <UserInput name="Password" />
-      <UserInput name="Confirm Password" />
-      <TouchableOpacity style={styles.submit}>
-        <Text>Register</Text>
+      <UserInput
+        name="FullName"
+        value={fullName}
+        setValue={setFullName}
+        autoCapitalize="word"
+      />
+      <UserInput
+        name="Email"
+        value={email}
+        setValue={setEmail}
+        autoCompleteType="email"
+      />
+      <UserInput
+        name="Password"
+        value={password}
+        setValue={setPassword}
+        secureTextEntry={true}
+        autoCompleteType="password"
+      />
+      <UserInput
+        name="Confirm Password"
+        value={confirmPass}
+        setValue={setConfirmPass}
+        secureTextEntry={true}
+        autoCompleteType="password"
+      />
+      <TouchableOpacity style={styles.submit} onPress={() => handleSubmit()}>
+        <Text>{loading ? "Waiting..." : "Register"}</Text>
       </TouchableOpacity>
       <Text style={{ marginTop: 50 }}>
         Have account?{" "}

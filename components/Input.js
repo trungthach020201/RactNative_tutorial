@@ -7,11 +7,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const UserInput = ({ name }) => {
+const UserInput = ({
+  name,
+  value,
+  setValue,
+  autoCapitalize = "none",
+  secureTextEntry = "false",
+}) => {
   return (
     <View>
       <Text style={{ width: "100%", fontWeight: "600" }}>{name}</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        style={styles.input}
+        autoCapitalize={autoCapitalize}
+        secureTextEntry={secureTextEntry}
+        value={value}
+        onChangeText={(text) => setValue(text)}
+      />
     </View>
   );
 };
